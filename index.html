@@ -207,7 +207,10 @@
       sel.value = Math.min(10,max); updateTotalTime();
     }
     function updateTotalTime(){ const cnt = Number($('#questionCount').value); const sec = $('#useTimer').checked ? 30*cnt : 0; $('#totalTime').textContent = $('#useTimer').checked ? `เวลารวม ~ ${Math.ceil(sec/60)} นาที` : 'ปิดตัวจับเวลา'; }
-
+     
+    document.addEventListener('DOMContentLoaded', () => {
+    updateQuestionCountOptions();
+});
     function normalizeText(s){ return String(s||'').toLowerCase().replace(/[\p{P}\p{S}]/gu,'').trim(); }
 
     function isAutoGradable(q){ return !q.manual; }

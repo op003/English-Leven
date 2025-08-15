@@ -104,7 +104,7 @@
 
 <div class="card hidden" id="screen-result">
   <h2 style="margin:4px 0">ผลการทดสอบ</h2>
-  <p class="lead">เยี่ยมมาก! นี่คือระดับภาษาอังกฤษโดยประมาณของคุณ</p>
+  <p class="lead">จบแล้ว นี่คือระดับภาษาอังกฤษโดยประมาณของคุณ</p>
   <div class="grid two">
     <div>
       <div class="card">

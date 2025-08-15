@@ -1,0 +1,334 @@
+<!DOCTYPE html><html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>English Level Test — by Shin</title>
+  <style>
+    :root{
+      --bg:#0b1020; --card:#121833; --muted:#a9b0cf; --text:#eef2ff; --accent:#6ee7ff; --accent2:#b794f4; --good:#22c55e; --bad:#ef4444; --warn:#f59e0b;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;background:radial-gradient(60vw 60vw at 50% -10%,#1a235a22,transparent),var(--bg);color:var(--text);}
+    .wrap{max-width:960px;margin:0 auto;padding:24px}
+    .card{background:linear-gradient(180deg,#121833,#0f1430);border:1px solid #1f2760; box-shadow:0 8px 30px #0006; border-radius:20px;padding:20px}
+    h1{font-size:clamp(22px,4vw,36px);margin:8px 0 6px;line-height:1.1}
+    p.lead{color:var(--muted);margin:0 0 16px}
+    .row{display:grid;gap:12px}
+    .row.cols-2{grid-template-columns:1fr}
+    @media(min-width:768px){.row.cols-2{grid-template-columns:1fr 1fr}}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:14px;border:1px solid #2a3475;background:#182052;color:#fff;font-weight:600;cursor:pointer;transition:.2s transform,.2s background}
+    .btn:hover{transform:translateY(-1px);background:#1b255e}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));border:0;color:#061222}
+    .btn.ghost{background:transparent;border-color:#2a3475;color:#c7d2fe}
+    .muted{color:var(--muted)}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#1a2252;border:1px solid #2b357a;color:#cdd6ff;font-size:12px}
+    .bar{height:10px;border-radius:999px;background:#1b2250;border:1px solid #2a3475;overflow:hidden}
+    .bar > span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%}
+    .q{margin-top:8px;font-size:18px}
+    .opt{margin-top:10px;display:grid;gap:10px}
+    .opt button{width:100%;text-align:left;padding:12px 14px;border-radius:12px;border:1px solid #2a3475;background:#121940;color:#eaf0ff;cursor:pointer}
+    .opt button.correct{outline:2px solid var(--good);}
+    .opt button.wrong{outline:2px solid var(--bad);}
+    .footer{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:14px}
+    .small{font-size:12px}
+    .grid{display:grid;gap:10px}
+    .grid.two{grid-template-columns:1fr}
+    @media(min-width:768px){.grid.two{grid-template-columns:1fr 1fr}}
+    textarea{width:100%;min-height:200px;background:#0f1533;border:1px solid #2a3475;color:#eaf0ff;border-radius:12px;padding:12px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    input,select{background:#0f1533;border:1px solid #2a3475;color:#eaf0ff;border-radius:10px;padding:10px}
+    .tag{font-size:11px;opacity:.8}
+    .hidden{display:none}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" id="screen-intro">
+      <div class="row cols-2">
+        <div>
+          <h1>English Level Test</h1>
+          <p class="lead">ทำแบบทดสอบวัดระดับภาษาอังกฤษแบบเร็ว ๆ สำหรับเพื่อน ๆ ของชิน ✨</p>
+          <div class="grid two">
+            <label>ใส่ชื่อผู้ทำแบบทดสอบ
+              <input id="playerName" placeholder="เช่น: Mind, Fluke" />
+            </label>
+            <label>จำนวนข้อที่ใช้ทดสอบ
+              <select id="questionCount"></select>
+            </label>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+            <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="useTimer"> ใช้ตัวจับเวลา (30 วินาที/ข้ อ)</label>
+            <span class="pill" id="totalTime">—</span>
+          </div>
+          <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn primary" id="startBtn">เริ่มทำแบบทดสอบ</button>
+            <button class="btn ghost" id="toggleEditor">โหมดแก้ไขคำถาม</button>
+          </div>
+          <p class="small muted" style="margin-top:10px">* เว็บนี้เป็นเทมเพลตแก้ไขง่าย ๆ — ชินสามารถเปลี่ยนคำถามให้ตรงกับคลิป TikTok ได้ทันทีด้านล่าง</p>
+        </div>
+        <div>
+          <div class="card" style="min-height:160px">
+            <div class="grid">
+              <div><span class="pill">ระดับคะแนน → ระดับ CEFR (ค่าเริ่มต้น)</span></div>
+              <div class="grid two">
+                <div>
+                  <div>0–4: <strong>A1</strong> (Beginner)</div>
+                  <div>5–8: <strong>A2</strong> (Elementary)</div>
+                </div>
+                <div>
+                  <div>9–12: <strong>B1</strong> (Intermediate)</div>
+                  <div>13–16: <strong>B2</strong> (Upper‑Int)</div>
+                </div>
+              </div>
+              <div class="small muted">* ช่วงคะแนนจะปรับอัตโนมัติถ้าชินเปลี่ยนจำนวนข้อ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><div class="card hidden" id="screen-quiz">
+  <div class="footer">
+    <div class="pill">ชื่อ: <span id="showName">—</span></div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <div class="pill">ข้อ <span id="curIndex">1</span>/<span id="totalQ">1</span></div>
+      <div class="pill">คะแนน <span id="score">0</span></div>
+      <div class="pill" id="timerPill" title="เวลาที่เหลือ">⏱ <span id="timeLeft">30</span>s</div>
+    </div>
+  </div>
+  <div class="bar" style="margin:10px 0 6px"><span id="progress"></span></div>
+  <div class="q" id="questionText">—</div>
+  <div class="opt" id="options"></div>
+  <div class="footer">
+    <div class="muted small" id="feedback">เลือกคำตอบ…</div>
+    <button class="btn" id="nextBtn">ข้อต่อไป ▶</button>
+  </div>
+</div>
+
+<div class="card hidden" id="screen-result">
+  <h2 style="margin:4px 0">ผลการทดสอบ</h2>
+  <p class="lead">เยี่ยมมาก! นี่คือระดับภาษาอังกฤษโดยประมาณของคุณ</p>
+  <div class="grid two">
+    <div>
+      <div class="card">
+        <div class="grid">
+          <div class="pill">ผู้ทำแบบทดสอบ</div>
+          <h3 id="rName">—</h3>
+          <div class="pill">คะแนน</div>
+          <h3 id="rScore">0/0</h3>
+          <div class="pill">ระดับ</div>
+          <h2 id="rLevel">—</h2>
+          <div class="muted small" id="rTips">—</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3 style="margin-top:0">จัดการผลลัพธ์</h3>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" id="copyBtn">คัดลอกผลลัพธ์</button>
+          <button class="btn" id="saveCsv">บันทึกเป็น CSV</button>
+          <button class="btn ghost" id="retryBtn">เริ่มใหม่</button>
+        </div>
+        <p class="small muted" style="margin-top:10px">* ระบบจะจำผลลัพธ์ไว้ชั่วคราวในเบราว์เซอร์เครื่องนั้น ๆ</p>
+        <div id="historyBox" class="small" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card hidden" id="screen-editor">
+  <h2 style="margin:4px 0">โหมดแก้ไขคำถาม</h2>
+  <p class="lead">วาง/แก้ไข JSON ของคำถามได้เลย ด้านล่างมีตัวอย่างจากคลิปแนว "English Level" (placeholder)</p>
+  <textarea id="editor"></textarea>
+  <div class="footer">
+    <div class="muted small">รูปแบบ: [{"q":"คำถาม","choices":["A","B","C","D"],"answer":2,"tag":"Grammar"}, ...]</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" id="applyJson">บันทึกคำถาม</button>
+      <button class="btn ghost" id="closeEditor">กลับหน้าแรก</button>
+    </div>
+  </div>
+</div>
+
+  </div>  <script>
+    // ====== ตัวอย่างคำถามเริ่มต้น (แก้ได้ทุกอย่าง) ======
+    const defaultQuestions = [
+      { q:"Choose the correct option: I ____ to the gym every morning.", choices:["go","goes","am go","going"], answer:0, tag:"Grammar" },
+      { q:"What does 'reliable' mean?", choices:["able to be trusted","easy to break","very expensive","funny"], answer:0, tag:"Vocabulary" },
+      { q:"Pick the best response: 'Could you help me with this?'", choices:["Yes, I could","Yes, I can","Yes, I am","Yes, I do"], answer:1, tag:"Usage" },
+      { q:"Find the error: She don't like coffee.", choices:["She","don't","like","coffee"], answer:1, tag:"Grammar" },
+      { q:"Choose the correct preposition: I'm interested ___ astronomy.", choices:["on","at","in","for"], answer:2, tag:"Preposition" },
+      { q:"Which is closest to 'benefit'?", choices:["advantage","danger","mirror","limit"], answer:0, tag:"Vocabulary" },
+      { q:"Reading: 'The museum opens at 10 a.m. on weekdays.' What time does it open on Monday?", choices:["9 a.m.","10 a.m.","11 a.m.","It is closed"], answer:1, tag:"Reading" },
+      { q:"Choose natural English: That's not my cup of ____.", choices:["tea","coffee","milk","sugar"], answer:0, tag:"Idiom" },
+      { q:"Pick the tense: By 8 p.m., I will have ____ dinner.", choices:["eat","eaten","eating","ate"], answer:1, tag:"Tense" },
+      { q:"Which sentence is correct?", choices:["He is teacher.","He is a teacher.","He a teacher is.","He teacher is a."], answer:1, tag:"Article" },
+      { q:"Choose the best connector: I was tired, ____ I finished the project.", choices:["so","but","and","or"], answer:1, tag:"Connector" },
+      { q:"Which word fits? She gave me some useful ____ before the exam.", choices:["advices","advice","advise","advises"], answer:1, tag:"Vocabulary" },
+      { q:"Polite request: ____ you mind opening the window?", choices:["Do","Are","Would","Will be"], answer:2, tag:"Politeness" },
+      { q:"Choose the phrasal verb: I need to ____ up early tomorrow.", choices:["get","getting","gets","got"], answer:0, tag:"Phrasal" },
+      { q:"Reading: 'Tickets are non-refundable after purchase.' What does it mean?", choices:["You can return tickets anytime","You can't get your money back","Tickets are free","You can refund within 30 days"], answer:1, tag:"Reading" }
+    ];
+
+    // ====== state ======
+    const state = {
+      allQuestions: JSON.parse(localStorage.getItem('quizQuestions')||'null') || defaultQuestions,
+      order: [], idx: 0, score: 0, name: '', useTimer:false, secs:30, timer:null,
+      pickCount: 10, startedAt: null, history: JSON.parse(localStorage.getItem('quizHistory')||'[]')
+    };
+
+    // ====== helpers ======
+    const $ = sel => document.querySelector(sel);
+    const show = id => document.getElementById(id).classList.remove('hidden');
+    const hide = id => document.getElementById(id).classList.add('hidden');
+    const clamp = (n,min,max)=>Math.max(min,Math.min(max,n));
+
+    function shuffle(arr){
+      for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}
+      return arr;
+    }
+
+    function updateQuestionCountOptions(){
+      const sel = $('#questionCount');
+      sel.innerHTML = '';
+      const max = state.allQuestions.length;
+      [5,8,10,12,15, max].filter(x=>x<=max).forEach(n=>{
+        const o=document.createElement('option'); o.value=n; o.textContent = n===max?`${n} (ทั้งหมด)`:n; sel.appendChild(o);
+      });
+      sel.value = Math.min(10,max);
+      updateTotalTime();
+    }
+
+    function updateTotalTime(){
+      const cnt = Number($('#questionCount').value);
+      const sec = $('#useTimer').checked ? 30*cnt : 0;
+      $('#totalTime').textContent = $('#useTimer').checked ? `เวลารวม ~ ${Math.ceil(sec/60)} นาที` : 'ปิดตัวจับเวลา';
+    }
+
+    function levelFrom(score,total){
+      const pct = (score/total)*100;
+      if(pct >= 85) return {label:'B2', tips:'สื่อสารได้คล่อง ใช้โครงสร้างซับซ้อนได้ดี'};
+      if(pct >= 65) return {label:'B1', tips:'พื้นฐานแน่น ใช้ภาษาในชีวิตประจำวันได้'};
+      if(pct >= 40) return {label:'A2', tips:'กำลังพัฒนา รู้คำศัพท์พื้นฐานจำนวนมาก'};
+      return {label:'A1', tips:'เริ่มต้น แนะนำฝึกไวยากรณ์พื้นฐานและคำศัพท์'};
+    }
+
+    function renderQuiz(){
+      const qobj = state.allQuestions[state.order[state.idx]];
+      $('#questionText').textContent = qobj.q;
+      $('#curIndex').textContent = state.idx+1;
+      $('#totalQ').textContent = state.order.length;
+      $('#score').textContent = state.score;
+      $('#feedback').textContent = 'เลือกคำตอบ…';
+      const ops = $('#options'); ops.innerHTML = '';
+      qobj.choices.forEach((c,i)=>{
+        const b=document.createElement('button'); b.textContent = c; b.onclick=()=>choose(i,b,qobj.answer); ops.appendChild(b);
+      });
+      $('#progress').style.width = `${(state.idx/state.order.length)*100}%`;
+      $('#nextBtn').disabled = true;
+      if(state.useTimer){ startTick(); }
+    }
+
+    function choose(i,btn,correct){
+      const ops = Array.from(document.querySelectorAll('#options button'));
+      ops.forEach(b=>b.disabled=true);
+      if(i===correct){
+        btn.classList.add('correct'); state.score++; $('#feedback').textContent='ถูกต้อง!';
+      } else {
+        btn.classList.add('wrong'); ops[correct].classList.add('correct'); $('#feedback').textContent='ยังไม่ใช่ ลองข้อต่อไปนะ';
+      }
+      $('#score').textContent = state.score;
+      $('#nextBtn').disabled = false;
+      stopTick();
+    }
+
+    function startTick(){
+      stopTick();
+      let left = state.secs; $('#timeLeft').textContent = left; $('#timerPill').style.display='inline-flex';
+      state.timer = setInterval(()=>{
+        left--; $('#timeLeft').textContent = left;
+        if(left<=0){ stopTick(); autoNext(); }
+      },1000);
+    }
+    function stopTick(){ if(state.timer) { clearInterval(state.timer); state.timer=null; } }
+
+    function autoNext(){
+      // auto choose wrong and move on if time out
+      const qobj = state.allQuestions[state.order[state.idx]];
+      const ops = Array.from(document.querySelectorAll('#options button'));
+      ops.forEach(b=>b.disabled=true);
+      ops[qobj.answer].classList.add('correct');
+      $('#feedback').textContent='หมดเวลา! ข้อต่อไปนะ';
+      $('#nextBtn').disabled=false;
+    }
+
+    function nextQuestion(){
+      state.idx++;
+      if(state.idx >= state.order.length){ return finish(); }
+      renderQuiz();
+    }
+
+    function finish(){
+      hide('screen-quiz'); show('screen-result');
+      const total = state.order.length; const {label,tips}=levelFrom(state.score,total);
+      $('#rName').textContent = state.name || '-';
+      $('#rScore').textContent = `${state.score}/${total}`;
+      $('#rLevel').textContent = label;
+      $('#rTips').textContent = tips;
+      const rec = { name: state.name||'-', score: state.score, total, level: label, at: new Date().toISOString() };
+      state.history.unshift(rec); state.history = state.history.slice(0,50);
+      localStorage.setItem('quizHistory', JSON.stringify(state.history));
+      renderHistory();
+    }
+
+    function renderHistory(){
+      const box = $('#historyBox');
+      if(!state.history.length){ box.innerHTML = '<span class="muted">ยังไม่มีประวัติ</span>'; return; }
+      const items = state.history.map(h=>`<div class="pill" style="margin:4px 4px 0 0;display:inline-flex;gap:8px">${h.name} • ${h.score}/${h.total} • ${h.level}</div>`).join('');
+      box.innerHTML = `<div class="small">ประวัติล่าสุด:</div>${items}`;
+    }
+
+    // ====== init ======
+    $('#toggleEditor').onclick = ()=>{ hide('screen-intro'); show('screen-editor'); $('#editor').value = JSON.stringify(state.allQuestions, null, 2); };
+    $('#closeEditor').onclick = ()=>{ hide('screen-editor'); show('screen-intro'); };
+    $('#applyJson').onclick = ()=>{
+      try{
+        const data = JSON.parse($('#editor').value);
+        if(!Array.isArray(data) || !data.length) throw new Error('รูปแบบไม่ถูกต้อง');
+        // quick validation
+        for(const it of data){ if(!it.q || !Array.isArray(it.choices) || typeof it.answer!=='number') throw new Error('ตรวจรูปแบบ q/choices/answer'); }
+        state.allQuestions = data; localStorage.setItem('quizQuestions', JSON.stringify(data));
+        updateQuestionCountOptions();
+        alert('บันทึกคำถามเรียบร้อย!');
+      }catch(e){ alert('❌ เกิดข้อผิดพลาด: '+e.message); }
+    };
+
+    $('#useTimer').onchange = updateTotalTime;
+
+    $('#startBtn').onclick = ()=>{
+      state.name = $('#playerName').value.trim();
+      state.useTimer = $('#useTimer').checked; $('#timerPill').style.display = state.useTimer? 'inline-flex':'none';
+      state.pickCount = Number($('#questionCount').value);
+      const idxs = Array.from({length: state.allQuestions.length}, (_,i)=>i);
+      state.order = shuffle(idxs).slice(0, state.pickCount);
+      state.idx = 0; state.score = 0; state.startedAt = new Date();
+      hide('screen-intro'); hide('screen-result'); hide('screen-editor'); show('screen-quiz');
+      $('#showName').textContent = state.name || '-';
+      renderQuiz();
+    };
+
+    $('#nextBtn').onclick = nextQuestion;
+    $('#retryBtn').onclick = ()=>{ hide('screen-result'); show('screen-intro'); };
+
+    $('#copyBtn').onclick = async ()=>{
+      const t = `English Level Test — ${$('#rName').textContent}\nScore: ${$('#rScore').textContent}\nLevel: ${$('#rLevel').textContent}`;
+      try{ await navigator.clipboard.writeText(t); alert('คัดลอกแล้ว!'); }catch{ alert('คัดลอกไม่สำเร็จ แต่คุณสามารถเลือกข้อความเองได้'); }
+    };
+
+    $('#saveCsv').onclick = ()=>{
+      const rows = [['name','score','total','level','timestamp'], ...state.history.map(h=>[h.name,h.score,h.total,h.level,h.at])];
+      const csv = rows.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')).join('\n');
+      const blob = new Blob([csv],{type:'text/csv'}); const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='english-level-results.csv'; a.click(); URL.revokeObjectURL(url);
+    };
+
+    updateQuestionCountOptions(); renderHistory();
+  </script></body>
+</html>

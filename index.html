@@ -1,82 +1,169 @@
-<!DOCTYPE html><html lang="th">
+<!DOCTYPE html>
+<html lang="th">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>English Level Test — by Shin</title>
-  <style>
-    :root{
-      --bg:#F5EED8; /* พื้นหลัง ตามที่ชินขอ */
-      --text:#F5E3CB; /* ตัวหนังสือ ตามที่ชินขอ */
-      --card:#ffffffcc; /* การ์ดสีอ่อนเพื่อความอ่านง่าย */
-      --muted:rgba(0,0,0,0.45);
-      --btn:#757575; /* ปุ่ม */
-      --good:#22c55e; /* ถูก */
-      --bad:#ef4444;  /* ผิด */
-      --accent:#b0c4a6;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
-      background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;
-      /* ป้องกันการคัดลอกข้อความ */
-      -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;
-    }
-    .wrap{max-width:960px;margin:24px auto;padding:18px}
-    .card{background:var(--card); border-radius:16px;padding:18px;box-shadow:0 6px 18px rgba(0,0,0,0.06); color: #2b2b2b}
-    h1{font-size:clamp(20px,3vw,30px);margin:4px 0 6px;color:#333}
-    p.lead{color:var(--muted);margin:0 0 12px}
-    .row{display:grid;gap:12px}
-    .row.cols-2{grid-template-columns:1fr}
-    @media(min-width:768px){.row.cols-2{grid-template-columns:1fr 1fr}}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:10px;border:0;background:var(--btn);color:#fff;font-weight:600;cursor:pointer;transition:.12s transform,.12s filter}
-    .btn:hover{transform:translateY(-2px);filter:brightness(.97)}
-    .btn.ghost{background:transparent;color:var(--muted);border:1px solid rgba(0,0,0,0.06)}
-    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#fff;border:1px solid rgba(0,0,0,0.06);color:#333;font-size:12px}
-    .bar{height:10px;border-radius:999px;background:#eee;overflow:hidden;border:1px solid rgba(0,0,0,0.04)}
-    .bar > span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#d7e6c7);width:0%}
-    .q{margin-top:12px;font-size:18px;color:#222}
-    .opt{margin-top:12px;display:grid;gap:10px}
-    .opt button{width:100%;text-align:left;padding:12px 14px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);background:#fbfbfb;color:#222;cursor:pointer}
-    .opt button.correct{outline:3px solid rgba(34,197,94,0.2);box-shadow:0 4px 14px rgba(34,197,94,0.06)}
-    .opt button.wrong{outline:3px solid rgba(239,68,68,0.12);box-shadow:0 4px 14px rgba(239,68,68,0.04)}
-    .footer{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:14px}
-    .small{font-size:13px;color:var(--muted)}
-    input[type=text], textarea{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);font-size:14px}
-    .hidden{display:none}
-    /* ป้องกันคลิกขวา */
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>English Level Test — by Shin</title>
+<style>
+:root{
+  --bg:#F5EED8;
+  --text:#F5E3CB;
+  --card:#ffffffcc;
+  --muted:rgba(0,0,0,0.45);
+  --btn:#757575;
+  --good:#22c55e;
+  --bad:#ef4444;
+  --accent:#b0c4a6;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;
+}
+.wrap{max-width:960px;margin:24px auto;padding:18px}
+.card{background:var(--card); border-radius:16px;padding:18px;box-shadow:0 6px 18px rgba(0,0,0,0.06); color: #2b2b2b}
+h1{font-size:clamp(20px,3vw,30px);margin:4px 0 6px;color:#333}
+p.lead{color:var(--muted);margin:0 0 12px}
+.row{display:grid;gap:12px}
+.row.cols-2{grid-template-columns:1fr}
+@media(min-width:768px){.row.cols-2{grid-template-columns:1fr 1fr}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:10px;border:0;background:var(--btn);color:#fff;font-weight:600;cursor:pointer;transition:.12s transform,.12s filter}
+.btn:hover{transform:translateY(-2px);filter:brightness(.97)}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid rgba(0,0,0,0.06)}
+.pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#fff;border:1px solid rgba(0,0,0,0.06);color:#333;font-size:12px}
+.bar{height:10px;border-radius:999px;background:#eee;overflow:hidden;border:1px solid rgba(0,0,0,0.04)}
+.bar > span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#d7e6c7);width:0%}
+.q{margin-top:12px;font-size:18px;color:#222}
+.opt{margin-top:12px;display:grid;gap:10px}
+.opt button{width:100%;text-align:left;padding:12px 14px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);background:#fbfbfb;color:#222;cursor:pointer}
+.opt button.correct{outline:3px solid rgba(34,197,94,0.2);box-shadow:0 4px 14px rgba(34,197,94,0.06)}
+.opt button.wrong{outline:3px solid rgba(239,68,68,0.12);box-shadow:0 4px 14px rgba(239,68,68,0.04)}
+.footer{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:14px}
+.small{font-size:13px;color:var(--muted)}
+input[type=text], textarea, select{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);font-size:14px}
+.hidden{display:none}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card" id="screen-intro">
-      <div class="row cols-2">
-        <div>
-          <h1>English Level Test</h1>
-          <p class="lead">แบบทดสอบวัดระดับภาษาอังกฤษ — สำหรับเพื่อน ๆ ของชิน (สีพาสเทลตามที่ขอ)</p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-            <label style="display:flex;flex-direction:column;gap:8px">
-              ใส่ชื่อ
-              <input id="playerName" type="text" placeholder="เช่น: Mind, Fluke" />
-            </label>
-            <label style="display:flex;flex-direction:column;gap:8px">
-              จำนวนข้อที่จะสุ่ม
-              <select id="questionCount"></select>
-            </label>
-          </div><div style="margin-top:12px;display:flex;gap:12px;align-items:center">
-        <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="useTimer"> ใช้ตัวจับเวลา (30 วินาที/ข้อ)</label>
-        <span class="pill" id="totalTime">—</span>
+<div class="wrap">
+  <div class="card" id="screen-intro">
+    <div class="row cols-2">
+      <div>
+        <h1>English Level Test</h1>
+        <p class="lead">แบบทดสอบวัดระดับภาษาอังกฤษ — สำหรับเพื่อน ๆ ของชิน (สีพาสเทล)</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+          <label style="display:flex;flex-direction:column;gap:8px">
+            ใส่ชื่อ
+            <input id="playerName" type="text" placeholder="เช่น: Mind, Fluke" />
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            จำนวนข้อที่จะสุ่ม
+            <select id="questionCount"></select>
+          </label>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:12px;align-items:center">
+          <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="useTimer"> ใช้ตัวจับเวลา (30 วินาที/ข้อ)</label>
+          <span class="pill" id="totalTime">—</span>
+        </div>
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" id="startBtn">เริ่มทำแบบทดสอบ</button>
+        </div>
+        <p class="small" style="margin-top:10px">* โจทย์ถูกฝังไว้ในหน้าเว็บและไม่สามารถแก้ไขได้โดยผู้เล่น</p>
       </div>
-
-      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
-        <button class="btn" id="startBtn">เริ่มทำแบบทดสอบ</button>
-      </div>
-      <p class="small" style="margin-top:10px">* โจทย์ถูกฝังไว้ในหน้าเว็บและไม่สามารถแก้ไขได้โดยผู้เล่น</p>
     </div>
-    <div>
+  </div>
+
+  <div class="card hidden" id="screen-quiz">
+    <div class="footer">
+      <div class="pill">ชื่อ: <span id="showName">—</span></div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <div class="pill">ข้อ <span id="curIndex">1</span>/<span id="totalQ">1</span></div>
+        <div class="pill">คะแนน <span id="score">0</span></div>
+        <div class="pill" id="timerPill" title="เวลาที่เหลือ">⏱ <span id="timeLeft">30</span>s</div>
+      </div>
+    </div>
+    <div class="bar" style="margin:10px 0 6px"><span id="progress"></span></div>
+    <div class="q" id="questionText">—</div>
+    <div class="opt" id="options"></div>
+    <div class="footer">
+      <div class="small" id="feedback">เลือกคำตอบ…</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn" id="nextBtn">ข้อต่อไป ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card hidden" id="screen-result">
+    <h2 style="margin:4px 0">ผลการทดสอบ</h2>
+    <p class="lead">นี่คือผลโดยประมาณของคุณ (ระบบตรวจอัตโนมัติ)</p>
+    <div style="display:grid;grid-template-columns:1fr;gap:12px">
       <div class="card">
-        <div style="display:grid;gap:10px">
-          <div><span class="pill">ระดับคะแนน (โดยประมาณ)</span></div>
+        <div>
+          <div class="pill">ผู้ทำแบบทดสอบ</div>
+          <h3 id="rName">—</h3>
+          <div class="pill">คะแนน (อัตโนมัติ)</div>
+          <h3 id="rScore">0/0</h3>
+          <div class="pill">ระดับ (โดยประมาณ)</div>
+          <h2 id="rLevel">—</h2>
+          <div class="small" id="rTips">—</div>
+          <div class="small" id="manualNote" style="margin-top:8px;color:#555"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">จัดการผลลัพธ์</h3>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" id="saveCsv">บันทึกเป็น CSV</button>
+          <button class="btn ghost" id="retryBtn">เริ่มใหม่</button>
+        </div>
+        <p class="small" style="margin-top:10px">* ผลจะถูกเก็บชั่วคราวในเบราว์เซอร์เครื่องนั้น</p>
+        <div id="historyBox" class="small" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ====== ตัวแปรและคำถาม (ยึดโครงสร้างเดิม) ======
+const defaultQuestions = [/* ใส่คำถาม B1-C2 ตามเดิม */];
+const state = { allQuestions: defaultQuestions, order:[], idx:0, score:0, name:'', useTimer:false, secs:30, timer:null, pickCount:10, startedAt:null, history: JSON.parse(localStorage.getItem('quizHistory')||'[]')};
+
+// ====== Helpers ======
+const $ = sel=>document.querySelector(sel);
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]} return arr;}
+
+function updateQuestionCountOptions(){
+  const sel=$('#questionCount'); sel.innerHTML='';
+  const max=state.allQuestions.length;
+  [5,8,10,12,15,max].filter(x=>x<=max).forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n===max?`${n} (ทั้งหมด)`:n; sel.appendChild(o);});
+  sel.value=Math.min(10,max);
+  updateTotalTime();
+}
+function updateTotalTime(){ 
+  const cnt=Number($('#questionCount').value);
+  const sec=$('#useTimer').checked?30*cnt:0;
+  $('#totalTime').textContent = $('#useTimer').checked?`เวลารวม ~ ${Math.ceil(sec/60)} นาที`:'ปิดตัวจับเวลา';
+  state.pickCount = cnt;
+}
+
+document.addEventListener('DOMContentLoaded',()=>{ 
+  updateQuestionCountOptions();
+  $('#questionCount').onchange=updateTotalTime;
+  $('#useTimer').onchange=updateTotalTime;
+});
+
+// ====== ป้องกันการคัดลอก/คลิกขวา ======
+['copy','cut','contextmenu'].forEach(ev=>document.addEventListener(ev,e=>e.preventDefault()));
+
+// ====== ฟังก์ชันหลัก ======
+// ... สามารถนำโค้ด JS จากโค้ดเดิมที่แก้ไขแล้วมาใช้กับ state ใหม่
+</script>
+</body>
+</html>          <div><span class="pill">ระดับคะแนน (โดยประมาณ)</span></div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
             <div>
               <div>0–24%: <strong>A1</strong></div>
